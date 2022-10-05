@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>***** 요소 생성 및 제거</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        
+        .item{
+            border : 2px dotted orangered;
+            background-color: yellowgreen;
+            width: 100px;
+            height: 100px;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+        }
+        .skyblue{
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>요소 생성 및 제거</h1>
+
+    <h3>* 동적으로 요소 생성</h3>
+
+    <button id="btn">요소 생성</button>
+
+    <div id="area1">
+
+    </div>
+
+    <script>
+        $(function(){
+
+            // <p> ~~~~~~ </p>
+            // p요소를 동적으로 만들어보자
+            $('#btn').click(function(){
+
+                // 자바스크립트 방식으로 만들어보자
+
+                // 1. 문자열로 만드는 방법
+                var el1 = '<p>여러분이 힘들어하는 4시</p>';
+
+                //document.getElementById('area1').innerHTML = el1;
+
+                // 2. DOM 객체를 이용한방법
+                // 1단계 : createElement
+                // 2단계 : createTextNode
+                // 3단계 : appendChild
+                var el2 = document.createElement('p'); // <p></p>
+                var text = document.createTextNode('여러분이 힘들어하는 4시'); // 여러분이 힘들어하는 4시
+                el2.appendChild(text); // <p>여러분이 힘들어하는 4시</p>
+
+                //document.getElementById('area1').appendChild(el2);
+
+                // 3. jQuery 방식
+                // 여러분이 힘들어하는 4시
+                var $el3 = $('<p></p>').text('여러분이 힘들어하는 4시');
+                // <p>여러분이 힘들어하는 4시</p>
+
+                //console.log(el3);
+
+
+                // 참고로
+                // 자바스크립트 방식으로 만든 요소객체도 제이쿼리방식으로 붙일 수 있다.
+                /*
+                $('#area1').append(el1);
+                $('#area1').append(el2);
+                $('#area1').append($el3);
+                */
+
+
+                $('#area1').append(el1, el2, $el3);
+
+            })
+        })
+    </script>
+
+    <h3>* 삽입 관련 메소드 part1</h3>
+
+    <label>A to B</label>
+
+    <p>
+        선택된 요소를 기준으로 새로 생성된 요소를 추가하는 메소드 <br><br>
+
+        $(A).append(B) : A요소 내에 뒷부분에 B를 추가 (자식/하위)<br>
+        $(A).prepend(B) : A요소 내에 앞부분에 B를 추가 (자식/상위)<br>
+        $(A).after(B) : A요소 뒷부분에 B를 추가 (동위)<br>
+        $(A).before(B): A요소 앞부분에 B를 추가 (동위)
+    </p>
+
+    <h3>* 삽입 관련 메소드 part2</h3>
+
+    <label>B to A</label>
+    <p>
+        $(B).appendTo(A) : B를 A요소 내의 뒷부분에 추가 <br>
+        $(B).prependTo(A) : B를 A요소 내의 앞부분에 추가 <br>
+        $(B).insertAfter(A) : B를 A요소 뒷부분에 추가 <br>
+        $(B).insertBefor(A) : B를 A요소 앞부분에 추가
+    </p>
+
+    <!-- <span class="added">B</span> -->
+    <!-- A == h1 // B == span.added -->
+
+    <h1 id="test1">
+        <span>span1</span>
+        <!-- <span class="added">B</span> -->
+    </h1>
+
+    <h1 id="test2">
+        <!-- <span class="added">B</span> -->
+        <span>span2</span>
+    </h1>
+
+    <h1 id="test3">
+        <span>span3</span>
+    </h1>
+    <!-- <span class="added">B</span> -->
+
+    <!--<span class="added">B</span>-->
+    <h1 id="test4">
+        <span>span4</span>
+    </h1>
+
+    <script>
+        $(function(){
+            // part1
+            /*
+            $('#test1').append('<span class="added">B</span>');
+            $('#test2').prepend('<span class="added">B</span>');
+            $('#test3').after('<span class="added">B</span>');
+            $('#test4').before('<span class="added">B</span>');
+            */
+
+            //part2
+            $('<span class="added">B</span>').appendTo('#test1');
+            $('<span class="added">B</span>').prependTo('#test2');
+            $('<span class="added">B</span>').insertAfter('#test3');
+            $('<span class="added">B</span>').insertBefore('#test4');
+        })
+    </script>
+
+    <hr>
+
+    <h3>* 요소 객체 복제 메소드</h3>
+
+    <p>
+        $('선택자').clone(true/false) : 선택된 요소객체를 복제해서 반환해주는 메소드 <br>
+        => true / false : 해당 선택된 요소에 걸려있는 이벤트까지 복사할건지 안할건지 지정
+        (생략가능, 기본값 false)
+    </p>
+
+    <button id="clone">복제</button>
+
+    <div id="clone-test">
+        <!-- 복제할 요소 -->
+        <div id="item1" class="item">
+            <span>안녕</span>
+        </div>
+
+    </div>
+
+    <!-- 복제한 요소를 붙여넣을 공간 -->
+    <div id="clone-result">
+
+    </div>
+
+    <script>
+        $(function(){
+
+            // 복제할 요소에 hover이벤트추가
+            $('#item1').hover(function(){ // mouseenter
+                $(this).addClass('skyblue');
+            }, function(){ // mouseout
+                $(this).removeClass('skyblue');
+            })
+
+            // 복제 버튼 클릭 시 해당 요소를 복사해서 clone-result에 붙여넣기
+            $('#clone').click(function(){
+
+                $('#clone-result').append($('#item1').clone(true));
+
+                //$('#item1').clone(true).appendTo('#clone-result');
+
+            })
+        })
+    </script>
+
+    <hr>
+
+    <h3>* 요소 객체 제거 및 잘라내기 메소드</h3>
+
+    <p>
+        $('선택자').empty() : 선택된 요소의 모든 후손요소들을 제거시켜주는 메소드 <br>
+
+        var 변수 = $('선택자').remove()/detach() : 해당 요소를 잘라내기 <br>
+        - .remove() : 잘라내기 시 잘라낸 요소의 이벤트를 안가져옴 <br>
+        - .detach() : 잘라내기 시 잘라낸 요소의 이벤트를 가져옴 <br>
+    </p>
+
+    <button id="empty">empty</button>
+    <button id="remove">remove</button>
+    <button id="detach">detach</button>
+
+    <div id="remove-test" style="border : 3px solid red; width : 110px; height : 110px;">
+        <!-- 제거할 요소 -->
+        <div id="item2" class="item">
+            <span>안녕~</span>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- 붙여넣기 할 공간 -->
+    <div id="remove-result" style="border : 3px solid red; width : 110px; height : 110px;">
+        
+    </div>
+
+    <script>
+        $(function(){
+
+            // empty
+            $('#empty').click(function(){
+                $('#remove-test').empty();
+            })
+
+            // remove, detach
+
+            // mouseenter
+            $('#item2').mouseenter(function(){
+                $(this).addClass('skyblue');
+            })
+
+
+            $('#remove').click(function(){
+                var el = $('#item2').remove(); // 이벤트를 안가져옴
+                $('#remove-result').append(el);
+            })
+
+            $('#detach').click(function(){
+                var el = $('#item2').detach(); // 이벤트를 가져옴
+                $('#remove-result').append(el);
+            })
+
+        });
+    </script>
+
+
+    <hr>
+
+    <div class="test">테스트</div>
+    <div class="test">테스트</div>
+    <div class="test">테스트</div>
+    <div class="test">테스트</div>
+
+
+    <script>
+        $(function(){
+
+            let count = 0;
+
+            $('.test').html(function(){
+                // 선택된 요소들에 순차적으로 접근할 때마다 해당 function 실행 됨
+                // 요 때 함수 실행 시 리턴값으로 innerHTML속성값 변경
+                return '<h1>ㅋㅋㅋㅋ' + count++ + '</h1>';
+            });
+
+
+            // 해당 function이 호출 될때마다
+            // 첫번째 매개변수로는 순차적으로 접근하는 요소의 인덱스
+            // 두번째 인자값으로는 순차적으로 접근하는 요소의 content영역값(innerHTML속성값)
+            $('.test').html(function(i, h){
+                return '인덱스 : ' + i + ', HTML : ' + h;
+            })
+
+
+        })
+    </script>
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    
+</body>
+</html>

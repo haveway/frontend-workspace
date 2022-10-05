@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: blanchedalmond;
+        }
+        h3, p{
+            text-align: center;
+        }
+        h3{
+            color: chocolate;
+        }
+        p{
+            color: darkorange;
+            font-size:14pt;
+        }
+        .item{
+            background-color: rgb(235, 132, 114);
+            margin : auto;
+            width: 150px;
+            height: 70px;
+            text-align: center;
+            color: darkred;
+            font-size: 18px;
+            border: 9px dotted lightcoral;
+            border-radius: 25px;
+        }
+        button{
+            margin-top: 10px;
+            background-color: goldenrod;
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 25px;
+            color: white;
+        }
+    </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h3>응용문제</h3>
+
+    <p>
+        복제 버튼 클릭 시 현재 버튼의 부모요소인 div를 복제시켜서 result(div)에 붙여넣기 <br>
+        삭제 버튼 클릭 시 현재 버튼의 부모요소인 div를 삭제시키기
+    </p>
+
+    <div class="item">나는 부모 div다
+        <button class="copy">복제</button>
+        <button class="delete">삭제</button>
+    </div>
+
+    <br>
+    <div class="item"></div>
+
+    <hr>
+
+    <div id="result">
+
+    </div>
+
+    <script>
+
+        $('.copy').click(function(){
+            // 1. 복제
+             var copy = $(this).parent().clone(true);
+            // 2. 대입
+            $('#result').append(copy);
+        })
+
+
+        $('.delete').click(function(){
+            //$(this).parent().parent().empty();
+            $(this).parent().remove();
+            $(this).parent().detach();
+
+        });
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window 객체</title>
+    <style>
+        .area{
+            width: 300px;
+            height: 100px;
+            font-size : 50px;
+            color: aquamarine;
+        }
+        .small{
+            height: 150px;
+        }
+        .big{
+            height: 300px;
+        }
+        .small .big .area{
+            background-color: bisque;
+            border : 1px solid lightblue;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(202, 248, 243, 0.2); color: rgb(141, 230, 237);">
+
+    <h1>window 객체</h1>
+
+    <p>
+        window 객체는 자바스크립트의 최상위 객체이며 크게 BOM과 DOM으로 나뉨 <br><br>
+
+        - BOM (Browser Object Model) : 브라우저창과 관련된 객체들 <br>
+
+        - DOM (Docuement Object Model) : html 문서의 요소(태그)와 관련된 객체들
+    </p>
+
+    <hr>
+
+    <h3>window 객체에서 제공하는 메소드</h3>
+
+    <!--
+        window.메소드명()
+
+        window.alert();
+        window.onload();
+        window.prompt();
+        window.confirm();
+        window.console.log();
+        .........
+        ------------------------------
+        window.open();
+        window.setTimeout();
+        window.setInterval();
+    -->
+
+    <h3>- window.open('url','창이름','특성')</h3>
+
+    <button onclick="test1();">네이버</button>
+
+    <script>
+        function test1(){
+
+            //window.open();
+
+            //window.open('http://www.naver.com','ㅋㅋㅋㅋ');
+            // url : 새 창에서 열고자하는 주소
+            // 창이름 : 창이름이 동일한게 이미 열려있을 경우 새로 열리지않고 이미 열려있는곳이 새로고침(크롬은 새로고침 / IE 새탭이 뜸)
+            // 창의 특성 : 새로 열릴 창의 너비, 높이, 툴바, 스크롤바, 상태표시줄 등등.. (브라우저마다 다름)
+
+            /*
+                * 창의 특성
+
+                width : 창의 너비
+                height : 창의 높이
+
+                yes / no
+                resizable : 창의 크기 조절여부
+                location : 주소창이 보일건지 안보일건지
+                menubar : 메뉴바를 보일건지 안보일건지
+                scrollbar : 스크롤바를 보일건지 안보일건지
+                status : 상태표시줄
+                toolbar : 도구모음
+
+                '속성=속성값, 속성=속성값, 속성=속성값'
+
+            */
+
+            window.open('http://www.naver.com', 'aaa',
+                        'width = 500, hegiht = 600, resizable = no, location = yes, menubar = yes, scrollbar = yes, toolbar = yes');
+            // 브라우저에 따라서 적용되거나 적용이 안되는 속성들이 많다.
+        }
+    </script>
+
+    <hr>
+
+    <h4>- window.setTitmeout(익명함수, ms)</h4>
+
+    <button onclick="test2();">실행확인</button>
+
+    <script>
+        function test2(){
+
+            // 5초 후에 alert 뜨게끔
+
+            /*
+            window.setTimeout(function(){
+                alert('넌 오늘 보충수업이다');
+            }, 5000);
+            */
+
+            // 5초후에 이 페이지는 닫힙니다 예시
+            var newWindow = window.open(); // 새로 열린창의 window객체
+            newWindow.alert('5초 후에 이 페이지는 닫힙니다.');
+
+            window.setTimeout(function(){
+                newWindow.close();
+            }, 5000);
+
+            // setTimeout : 내가 제시한 일정 시간 후에 "단 한번"만 실행됨
+        }
+    </script>
+
+    <hr>
+
+    <h4>-window.setInterval(익명함수, ms)</h4>
+
+    <button onclick="test3();">실행확인</button>
+    <div id="area1" class="area"></div>
+
+    <script>
+        function test3(){
+            var area1 = document.getElementById('area1');
+
+            var count = 1;
+
+            window.setInterval(function(){
+                /*
+                area1.innerHTML += count++;
+                area1.innerHTML += 'ㅋ';
+                */
+
+                // 시계 만들기
+                var now = new Date();
+
+                hour = now.getHours();
+                min = now.getMinutes();
+                sec = now.getSeconds();
+                var ap = '';
+
+                if(hour > 12){
+                    hour -= 12;
+                    ap = '오후';
+                }
+                else{
+                    ap = '오전';
+                }
+
+                if(min < 10){
+                    min = '0' + min;
+                }
+                if(sec < 10){
+                    sec = '0' + sec;
+                }
+                area1.innerHTML = ap + ' ' + hour + ':' + min + ':' + sec;
+
+            }, 1000);
+
+
+            // setInterval : 내가 지정한 시간 간격마다 "매번" 함수 실행
+
+        }
+    </script>
+
+    <h1>* BOM(Browser Object Model)</h1>
+
+    <p>
+        location객체, screen객체, navigator객체
+    </p>
+
+    <h3>location 객체</h3>
+    <p>
+        브라우저 주소창과 관련된 객체 => url(href속성)
+    </p>
+
+    <button onclick="console.log(location);">실행확인</button>
+    <br><br>
+
+    <a href="http://www.naver.com">네이버로이동</a>
+    <!-- a태그는 애초에 클릭 시 요청할 url을 작성할 수 있는 href속성을 제공함 -->
+    <br>
+
+    <button onclick="location.href='http://www.naver.com'">네이버로 이동</button>
+    <!-- 굳이 a태그가 아니더라도 url이동을 할 수 있음-->
+    <br>
+
+    <label onclick="location.href='http://www.naver.com'">네이버로 이동</label>
+    <br><br>
+
+    <!-- location객체에 assign , replace, reload 메소드가 존재-->
+
+    <!-- assign, replace는 페이지 이동-->
+    <button onclick="location.assign('http://google.com')">구글로 이동</button>
+    <button onclick="location.replace('http://google.com')">구글로 이동</button>
+
+
+    <!-- reload : 새로고침 -->
+    <button onclick="location.reload();">새로고침</button>
+    <button onclick="location.href = location.href">새로고침</button>
+
+    <hr>
+
+    <h3>screen 객체</h3>
+    <button onclick="console.log(screen);">screen객체</button> <!--사용자가 보는 화면에 관한 정보-->
+
+    <h3>navigator 객체</h3>
+    <button onclick="console.log(navigator);">navi객체</button> <!--브라우저 대한 정보-->
+
+
+    <hr>
+
+    <h1>* DOM(Document Object Model)</h1>
+
+    <p>
+        HTML에 있는 각각의 요소(태그)들을 Node(노드)라고 한다. <br>
+        - 요소노드(Element Node) : 태그 그 자체만을 의미 == Element <br>
+        - 텍스트노트(Text Node) : 태그 내에 기록되는 내용 == Content <br><br>
+
+        텍스트노드가 존재하는 요소(시작태그와 종료태그가 한쌍으로 이루어져있는 요소): p, div, butto, a, h1.... <br>
+        텍스트노드가 존재하지 않는 요소(시작태그로만 이루어져있는 요소) : br, hr, img, input...
+    </p>
+
+    <h3>* 노드 생성과 관련 메소드</h3>
+
+    <h4> - 텍스트 노드가 존재하는 노드 생성(시작태그 + 종료태그)</h4>
+
+    <button onclick="test4();">실행확인</button>
+
+    <div id="area3" class="small"></div>
+
+    <script>
+        function test4(){
+
+            // <h3>안녕하세요</h3>
+
+            // 동적으로 요소 만드는 방법! 1. '문자열'로 만드는 방법
+            //document.getElementById('area3').innerHTML = '<h3>안녕하세요</h3>';
+
+            // 동적으로 요소 만드는 방법! 2. document에서 제공하는 메소드를 통해 "요소객체"로 만드는 방법
+            // 1) elementNode 객체 생성 : document.createElement('태그명');
+            var elementNode = document.createElement('h3'); // <h3> </h3>
+            // 2) textNode 객체 생성 : document.createTextNode('안녕하세요');
+            var textNode = document.createTextNode('안녕하세요'); // 안녕하세요
+            // 3) 두 개의 노드를 연결(요소노드의 하위로 텍스트노드 추가)
+            // 요소노드.appendChild(텍스트노드);
+            // 1)의 자식으로 2)를 추가하겠다.
+            elementNode.appendChild(textNode); // <h3>안녕하세요</h3>
+
+            console.log(elementNode);
+            console.log(typeof(elementNode));
+
+            // innerHTML은 반드시 문자열 형태로 넣어야함
+            document.getElementById('area3').innerHTML += elementNode; //[object HTMLHeadingElement]
+
+            // div태그의 자식으로 elementNode 추가
+            document.getElementById('area3').appendChild(elementNode);
+        }
+    </script>
+
+    <hr>
+
+    <h4>- 텍스트노드가 존재하지 않는 노드 생성(시작태그만있당)</h4>
+
+    <button onclick="test5();">실행확인</button>
+
+    <div id="area4" class="big"></div>
+
+    <script>
+        function test5(){
+
+            var img = document.createElement('img');// <img>          태그라는 요소객체
+
+            // <img src="이미지경로" width="~~" height="~~" alt="~~~~~"> => 요소객체의 속성들
+
+            // 속성추가
+            img.src = 'data:image/jpeg;base64,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';
+
+            img.width = '400';
+            img.height = '200';
+
+            img.alt = '어디서가져온그림';
+
+            console.log(img);
+
+            // div의 자식요소로 붙여넣기
+            document.getElementById('area4').appendChild(img);
+
+        }
+    </script>
+
+
+    <hr>
+
+
+    <h4>- 노드삭제</h4>
+
+    <button onclick="test6();">지운다 요소</button>
+
+    <script>
+        function test6(){
+            // 노드삭제 : 지우고자하는요소객체명.remove()
+            //console.log(document.getElementById('area4').firstChild);
+
+            document.getElementById('area4').firstChild.remove();
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

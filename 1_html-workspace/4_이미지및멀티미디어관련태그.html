@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> 이미지 및 멀티미디어 관련 태그 </title>
+</head>
+<body>
+
+    <h1> 이미지 관련 태그 </h1>
+
+    <!-- 
+        <img src="삽입하고자하는 이미지의 경로(필수)" alt="이미지 설명 문구"
+               witdh ="이미지의 가로크기(px/%)" height="이미지의 세로크기(px/%)">
+     -->
+
+     <h3> *src 속성, alt 속성 </h3>
+     <img src="resources/image/peng.jpg" alt="이 사진은 펭수입니다">
+     <br>
+     <img src="resources/image/jun.png" alt="이 사진은 최준입니다">
+     <br>
+
+     <p>
+        *alt <br>
+        - 사진의 경로가 잘못되거나 이미지를 제대로 표현할 수 없는 경우 대체 텍스트의 용도 <br>
+        - 시각장애인들을 위한 스크린리더(화면 낭독기)에서 이미지를 읽어주는 설명 문구 <br>
+
+        웹 접근성 => 사용자의 신체적 특징이나, 지역, 나이, 지식수준 등을 고려해서
+                 가능한 많은 사용자가 불편 없이 이용할 수 있도록 서비스를 만들어서 제공하는 것
+     </p>
+
+     <hr>
+
+     <h3>*width와 height 속성</h3>
+
+     <p>
+         이미지의 가로, 세로길이 조정가능 <br>
+         고정길이(px), 가변길이(%)로 지정이 가능하다.
+     </p>
+
+     <h4>고정길이단위(px) == 기본값 : 화면사이즈가 조정이 되어도 이미지의 크기가 변동되지 않음</h4>
+
+     <img src="resources/image/flower2.jpg" alt="이쁜 꽃" width="200px" height="150">
+     <img src="resources/image/flower3.jpg" alt="이쁜 꽃" width="200px" height="150">
+     <img src="resources/image/flower4.jpg" alt="이쁜 꽃" width="200px" height="150">
+     <img src="resources/image/flower5.jpg" alt="이쁜 꽃" width="200px" height="150">
+
+     <br>
+
+     <h4>가변길이단위(%) : 화면사이즈 혹은 부모요소 사이즈에 따라 이미지의 크기도 같이 변동</h4>
+
+     <img src="resources/image/flower2.jpg" alt="이쁜 꽃" width="15%" height="150">
+     <img src="resources/image/flower3.jpg" alt="이쁜 꽃" width="15%" height="150">
+     <img src="resources/image/flower4.jpg" alt="이쁜 꽃" width="15%" height="150">
+     <img src="resources/image/flower5.jpg" alt="이쁜 꽃" width="15%" height="150">
+
+     <br><br><br><br><br>
+
+     <hr>
+
+     <br>
+     <h1>미디어 관련 태그</h1>
+
+     <h3>오디오 관련 태그</h3>
+     <!-- 
+         <audio src="" controls autoplay loop></audio>
+         controls : 플레이어 나오나안나오나
+         autoplay : 자동 재생여부 지정(IE O, 크롬 X)
+         loop : 반복 재생여부 지정
+      -->
+      <audio src="resources/audio/major.mp3" controls loop></audio>
+      <br>
+      <hr>
+
+      <h3>비디오 관련 태그</h3>
+
+      <!-- 
+            <video src="" controls autoplay loop width="" height="" poster=""></video>
+
+            src : 비디오 파일의 경로
+            controls autoplay : 자동재생 여부 지정 (크롬 X, IE O)
+            loop : 반복 재생여부 지정
+
+            width, height : 가로, 세로길이
+            poster : 썸네일 이미지
+       -->
+
+       <video src="resources/video/movie.ogv" controls 
+       width="400" height="200" poster="resources/image/bono.jpg"></video>
+
+    
+</body>
+</html>

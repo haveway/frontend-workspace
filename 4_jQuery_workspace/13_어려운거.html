@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <h3>체크박스 만들기</h3>
+
+    <div class="wrapper">
+        <div>
+            <input type="checkbox" class='batch' id="allChk"><label for="allChk">전체</label>
+            <input type="checkbox" class='batch' id="krChk"><label for="krChk">한식</label>
+            <input type="checkbox" class='batch' id="jpChk"><label for="jpChk">일식</label>
+        </div>
+
+        <hr>
+
+        <div class="list">
+            <input type="checkbox" class="kor chk"><div class="title">제육볶음</div>
+            <input type="checkbox" class="kor chk"><div class="title">부대찌개</div>
+            <input type="checkbox" class="jp chk"><div class="title">오마카세</div>
+            <input type="checkbox" class="jp chk"><div class="title">야끼소바</div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            $('.batch').on('change', function(){
+                if($(this).prop('checked') == false){
+                    $('#allChk').prop('checked', false);
+                }
+            });
+
+
+            $('#allChk').on('change', function(){
+                var $all = $('#allChk').prop('checked');
+                if($all){
+                    $('.batch').prop('checked', true);
+                    $('.chk').prop('checked', true);
+                }
+                else{
+                    $('.batch').prop('checked', false);
+                    $('.chk').prop('checked', false);
+                }
+            });
+
+            $('#krChk').on('change', function(){
+                var $kr = $('#krChk').prop('checked');
+
+                if($kr){
+                    $('.kor').prop('checked', true);
+                }
+                else{
+                    $('.kor').prop('checked', false);
+                }
+            });
+
+            $('#jpChk').on('change', function(){
+                var $jp = $('#jpChk').prop('checked');
+
+                if($jp){
+                    $('.jp').prop('checked', true);
+                }
+                else{
+                    $('.jp').prop('checked', false);
+                }
+            });
+
+        })
+    </script>
+
+
+
+    
+</body>
+</html>
